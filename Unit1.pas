@@ -31,12 +31,12 @@ type
   private
     { Private declarations }
   public
-    Size:Byte;  //толщина линии
-    New:Boolean;  //новая ли линия
-    Colour:TColor;  //цвет линии
-    Posx,Posy:Integer; //позиция курсора
-    Xpo,Ypo:integer; //позиция предыдущей точки
-    Bitmap:TBitmap; //битмап уже нарисованного
+    Size:Byte;  //С‚РѕР»С‰РёРЅР° Р»РёРЅРёРё
+    New:Boolean;  //РЅРѕРІР°СЏ Р»Рё Р»РёРЅРёСЏ
+    Colour:TColor;  //С†РІРµС‚ Р»РёРЅРёРё
+    Posx,Posy:Integer; //РїРѕР·РёС†РёСЏ РєСѓСЂСЃРѕСЂР°
+    Xpo,Ypo:integer; //РїРѕР·РёС†РёСЏ РїСЂРµРґС‹РґСѓС‰РµР№ С‚РѕС‡РєРё
+    Bitmap:TBitmap; //Р±РёС‚РјР°Рї СѓР¶Рµ РЅР°СЂРёСЃРѕРІР°РЅРЅРѕРіРѕ
   end;
 
 var
@@ -48,12 +48,12 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  //установка стандартных значений
+  //СѓСЃС‚Р°РЅРѕРІРєР° СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… Р·РЅР°С‡РµРЅРёР№
   Size:=5;
   New:=True;
   Colour:=clBlack;
   LabeledEdit1.Text:=IntToStr(Size);
-  //Создание и заливка белым битмапа
+  //РЎРѕР·РґР°РЅРёРµ Рё Р·Р°Р»РёРІРєР° Р±РµР»С‹Рј Р±РёС‚РјР°РїР°
   Bitmap:=TBitmap.Create;
   Bitmap.Width:=PaintBox1.Width;
   Bitmap.Height:=PaintBox1.Height;
@@ -67,19 +67,19 @@ end;
 procedure TForm1.PaintBox1MouseMove(Sender: TObject; Shift: TShiftState; X,
   Y: Integer);
 begin
-  //заливка текущим цветом области тек цвета
-  //при создании формы это не работает
+  //Р·Р°Р»РёРІРєР° С‚РµРєСѓС‰РёРј С†РІРµС‚РѕРј РѕР±Р»Р°СЃС‚Рё С‚РµРє С†РІРµС‚Р°
+  //РїСЂРё СЃРѕР·РґР°РЅРёРё С„РѕСЂРјС‹ СЌС‚Рѕ РЅРµ СЂР°Р±РѕС‚Р°РµС‚
   with PaintBox2, Canvas do begin
     Brush.Style:=bsSolid;
     Brush.Color:=Colour;
     FillRect(ClientRect);
   end;
 
-  //отслеживание курсора
+  //РѕС‚СЃР»РµР¶РёРІР°РЅРёРµ РєСѓСЂСЃРѕСЂР°
   Posx:=x;
   Posy:=y;
 
-  //превью линии
+  //РїСЂРµРІСЊСЋ Р»РёРЅРёРё
   with PaintBox1, Canvas do begin
     Draw(0,0,Bitmap);
     Pen.Style:=psSolid;
@@ -98,7 +98,7 @@ end;
 
 procedure TForm1.PaintBox1Click(Sender: TObject);
 begin
-  //отрисовка линии на битмапе
+  //РѕС‚СЂРёСЃРѕРІРєР° Р»РёРЅРёРё РЅР° Р±РёС‚РјР°РїРµ
   with Bitmap, Canvas do begin
     Pen.Style:=psSolid;
     Pen.Color:=Colour;
@@ -114,7 +114,7 @@ begin
       Ypo:=Posy;
     end;
   end;
-  //перенос на область рисования
+  //РїРµСЂРµРЅРѕСЃ РЅР° РѕР±Р»Р°СЃС‚СЊ СЂРёСЃРѕРІР°РЅРёСЏ
   PaintBox1.Canvas.Draw(0,0,Bitmap);
 end;
 
@@ -125,13 +125,13 @@ end;
 
 procedure TForm1.LabeledEdit1Change(Sender: TObject);
 var
-  s:string; //временная переменная для текста из Edit1
-  nums: set of char; //множество цифр
+  s:string; //РІСЂРµРјРµРЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С‚РµРєСЃС‚Р° РёР· Edit1
+  nums: set of char; //РјРЅРѕР¶РµСЃС‚РІРѕ С†РёС„СЂ
 begin
   s:=LabeledEdit1.Text;
   nums:=['0','1','2','3','4','5','6','7','8','9'];
-  if S<>'' then begin //проверка непустого поля
-    //удаление последнего символа, если тот не цифра
+  if S<>'' then begin //РїСЂРѕРІРµСЂРєР° РЅРµРїСѓСЃС‚РѕРіРѕ РїРѕР»СЏ
+    //СѓРґР°Р»РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ СЃРёРјРІРѕР»Р°, РµСЃР»Рё С‚РѕС‚ РЅРµ С†РёС„СЂР°
     if not(s[Length(s)] in nums) then begin
       Delete(S,1,Length(s));
       LabeledEdit1.Text:=s;
@@ -142,10 +142,10 @@ end;
 
 procedure TForm1.Button2Click(Sender: TObject);
 begin
-  if ColorDialog1.Execute then begin //проверка того, что цвет был выбран
-    //присвание нового цвета
+  if ColorDialog1.Execute then begin //РїСЂРѕРІРµСЂРєР° С‚РѕРіРѕ, С‡С‚Рѕ С†РІРµС‚ Р±С‹Р» РІС‹Р±СЂР°РЅ
+    //РїСЂРёСЃРІР°РЅРёРµ РЅРѕРІРѕРіРѕ С†РІРµС‚Р°
     Colour:=ColorDialog1.Color;
-    //заливка области тек цвета
+    //Р·Р°Р»РёРІРєР° РѕР±Р»Р°СЃС‚Рё С‚РµРє С†РІРµС‚Р°
     with PaintBox2, Canvas do begin
     Brush.Style:=bsSolid;
     Brush.Color:=Colour;
@@ -168,7 +168,7 @@ end;
 
 procedure TForm1.Button4Click(Sender: TObject);
 begin
-  if SavePictureDialog1.Execute then //проверка сброса сохраниения
+  if SavePictureDialog1.Execute then //РїСЂРѕРІРµСЂРєР° СЃР±СЂРѕСЃР° СЃРѕС…СЂР°РЅРёРµРЅРёСЏ
   Bitmap.SaveToFile(SavePictureDialog1.FileName);
 end;
 
